@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <h3 class="mb-0">Whishlist</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body">     
                     <form>
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
@@ -17,14 +17,21 @@
                             <label for="Imagen	Url">Imagen Url</label>
                             <input type="text" class="form-control" id="imagenUrl" placeholder="Ingresar	url..." #url>
                         </div>
-                        <button type="submit" class="btn	btn-primary"(click)="guardar(nombre.value, url.value)">Guardar!</button>
-                    </form>
+                        <button type="submit" class="btn btn-primary" (click)="guardar(nombre.value, url.value)">Guardar!</button>
+                    </form>               
+                    <app-form-destino-viaje></app-form-destino-viaje>
                 </div>
             </div>
         </div>
     </div>
     <hr class="mb-5">
-    <div class="row">
-        <app-destino-viaje *ngFor="let d of destination" [destino]="d"></app-destino-viaje>
+    <div class="row row-flex">
+        <app-destino-viaje
+            *ngFor="let d of destinosApiClient.getAll(); let i=index"
+            [destino]="d"
+            [idx]="i"
+            (clicked)='elegido(d)'
+            >
+        </app-destino-viaje>
     </div>
 </div>

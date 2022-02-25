@@ -1,17 +1,32 @@
-<div class="">
+<div class=" mt-1 mb-1">
     <div class="card-content">
         <div class="card-img">
             <img src="https://placeimg.com/380/230/nature" alt="">
             <span>
-                <h4>{{destino.nombre}}</h4>
+                <h4>{{position}}</h4>
             </span>
         </div>
         <div class="card-desc">
             <h3>Heading</h3>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, voluptatum! Dolor
-                quo, perspiciatis
-                voluptas totam</p>
-            <a href="#" class="btn-card">Read</a>
+            <p>Servicios</p>
+            <ul class="list-group">
+                <li class="list-group" *ngFor="let s of destino.services">
+                    <span [ngSwitch]="s">
+                        <i *ngSwitchCase="'Desayuno'" style="color: red;">{{s}}</i>
+                        <i *ngSwitchDefault>{{s}}</i>
+                        {{s}}
+
+                    </span>
+                </li>
+            </ul>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group"><a href="#" class="btn-card mt-1 mb-1" (click)="ir()">Ir !!</a></li>
+                <span *ngIf="destino.isSelected() " class="mx-2">
+                    <span ngNonBindable>{{PREFERIDO}}</span>
+                </span>
+                <a [routerLink]="['/destino', destino.id]">Ver Detalle</a>
+            </ul>
         </div>
     </div>
 </div>

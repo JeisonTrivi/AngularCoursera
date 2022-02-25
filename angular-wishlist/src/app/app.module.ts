@@ -1,22 +1,42 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes} from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DestinoDetalleComponent } from './destino-detalle/destino-detalle.component';
 import { DestinoViajeComponent } from './destino-viaje/destino-viaje.component';
+import { FormDestinoViajeComponent } from './form-destino-viaje/form-destino-viaje.component';
 import { ListaDestinosComponent } from './lista-destinos/lista-destinos.component';
+import { DestinosApiClient } from './modelos/destinosApiClientModel';
 
+
+const routes: Routes = [
+  { path: '',redirectTo: 'home', pathMatch: 'full'},
+  { path: 'home',component: ListaDestinosComponent},
+  { path: 'destino',component: DestinoDetalleComponent},
+  { path: 'destino/:id', component: DestinoDetalleComponent }
+];
 @NgModule({
   declarations: [
     AppComponent,
     DestinoViajeComponent,
-    ListaDestinosComponent
+    ListaDestinosComponent,
+    DestinoDetalleComponent,
+    FormDestinoViajeComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule
+  
+  BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+    DestinosApiClient
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
