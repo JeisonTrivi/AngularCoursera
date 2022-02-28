@@ -5,7 +5,7 @@ export class DestinoViaje {
 	services:string[];
 	id = uuid();
 	constructor(public nombre:string, public imagenUrl:string) {
-       this.services = ['pileta', 'desayuno'];
+       this.services = ['Desayuno','Piscina','Almuerzo','Cena'];
 	}
 	setSelected(s:boolean){
 	  this.selected = s;

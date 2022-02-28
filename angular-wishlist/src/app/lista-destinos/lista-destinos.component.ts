@@ -8,9 +8,9 @@ import { DestinosApiClient } from '../modelos/destinosApiClientModel';
   styleUrls: ['./lista-destinos.component.css']
 })
 export class ListaDestinosComponent implements OnInit {
-
   
   @Output() onItemAdded: EventEmitter<DestinoViaje>;   
+
   constructor (public destinosApiClient:DestinosApiClient) {
     this.onItemAdded = new EventEmitter();
   }  
@@ -18,11 +18,9 @@ export class ListaDestinosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  guardar(nombre:string, url:string):boolean{
-    let d = new DestinoViaje(nombre,url);
+  agregado(d: DestinoViaje){
     this.destinosApiClient.add(d);
     this.onItemAdded.emit(d)
-    return false;
   }
 
   elegido (e: DestinoViaje){
