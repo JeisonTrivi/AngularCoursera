@@ -7,15 +7,13 @@
             </span>
         </div>
         <div class="card-desc">
-            <h3>Heading</h3>
+            <h3>{{destino.nombre}}</h3>
             <p>Servicios</p>
             <ul class="list-group">
                 <li class="list-group" *ngFor="let s of destino.services">
                     <span [ngSwitch]="s">
                         <i *ngSwitchCase="'Desayuno'" style="color: red;">{{s}}</i>
                         <i *ngSwitchDefault>{{s}}</i>
-                        {{s}}
-
                     </span>
                 </li>
             </ul>
