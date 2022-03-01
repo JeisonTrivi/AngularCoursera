@@ -2,7 +2,9 @@
     <div class="form-group">
         <label for="nombre">Nombre</label>
         <input type="text" class="form-control" id="nombre" placeholder="Ingresar nombre..." formControlName='nombre'>
-
+        <ul>
+    		<li *ngFor="let r of searchResults;">{{r}}</li>
+		</ul>
         <div class="alert alert-danger" *ngIf="fg.controls['nombre'].hasError('required')">
             Nombre Requerido!
         </div>
