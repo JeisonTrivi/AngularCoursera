@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes} from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { ActionReducerMap , StoreModule as NgRxStoreModule} from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -52,7 +53,8 @@ const reducersInitialState = {
     ReactiveFormsModule,
     AppRoutingModule,
     EffectsModule.forRoot([DestinosViajesEffects]),
-    NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState })
+    NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState }),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [
     DestinosApiClient

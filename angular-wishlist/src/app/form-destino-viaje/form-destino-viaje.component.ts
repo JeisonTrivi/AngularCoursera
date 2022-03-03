@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
 import { DestinoViaje } from '../modelos/destinoViaje';
 import { fromEvent } from 'rxjs';
 import { map, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { ajax, AjaxResponse } from 'rxjs/ajax';
+import { ajax } from 'rxjs/ajax';
 
 
 
@@ -84,5 +84,7 @@ export class FormDestinoViajeComponent implements OnInit {
       return null;
     }
   }
+
+  
 }
 

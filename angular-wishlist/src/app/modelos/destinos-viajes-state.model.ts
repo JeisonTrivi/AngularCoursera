@@ -28,6 +28,7 @@ export enum DestinosViajesActionTypes { //Hacer uso de esta constante para todos
   ELEGIDO_FAVORITO = '[Destinos Viajes] Favorito',
   VOTE_UP = '[Destinos Viajes] Vote Up',
   VOTE_DOWN = '[Destinos Viajes] Vote Down',
+  RESET_VOTE = '[Destinos Viajes] Reset Vote',
   INIT_MY_DATA = '[Destinos Viajes] Init My Data'
 }
 
@@ -51,6 +52,10 @@ export class VoteDownAction implements Action {
 	constructor(public destino: DestinoViaje) {} //Toda la lógica
 }
 
+export class ResetVoteAction implements Action {
+	type = DestinosViajesActionTypes.RESET_VOTE;
+	constructor(public destino: DestinoViaje) {} //Toda la lógica
+}
 // Clase que recibe un array de Strings
 export class InitMyDataAction implements Action {
 	type = DestinosViajesActionTypes.INIT_MY_DATA;
@@ -58,7 +63,7 @@ export class InitMyDataAction implements Action {
 }
 
 export type DestinosViajesActions = NuevoDestinoAction | ElegidoFavoritoAction
-	| VoteUpAction | VoteDownAction | InitMyDataAction; //Agrupar todos los tipos de datos (unión de tipos)
+	| VoteUpAction | VoteDownAction | ResetVoteAction |InitMyDataAction; //Agrupar todos los tipos de datos (unión de tipos)
 
 //REDUCERS: cada que se dispara una acción son llamados uno a uno
 export function reducerDestinosViajes(
@@ -92,12 +97,17 @@ export function reducerDestinosViajes(
 		case DestinosViajesActionTypes.VOTE_UP: {
 			let d: DestinoViaje = (action as VoteUpAction).destino;
 		    d.VoteUp();
-		    return { ...state! }; //Clonar el mismo state (no cambia el estado)
+		    return { ...state! }; 
 		}
 		case DestinosViajesActionTypes.VOTE_DOWN: {
 			let d: DestinoViaje = (action as VoteDownAction).destino;
 		    d.VoteDown();
-		    return { ...state! }; //Clonar el mismo state (no cambia el estado)
+		    return { ...state! }; 
+		}
+		case DestinosViajesActionTypes.RESET_VOTE: {
+			let d: DestinoViaje = (action as ResetVoteAction).destino;
+		    d.ResetVote();
+		    return { ...state! }; 
 		}
 	}
 	return state!; //Devolver el estado sin mutar
