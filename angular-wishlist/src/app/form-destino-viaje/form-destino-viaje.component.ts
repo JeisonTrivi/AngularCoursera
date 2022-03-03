@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
 import { DestinoViaje } from '../modelos/destinoViaje';
 import { fromEvent } from 'rxjs';
 import { map, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { ajax } from 'rxjs/ajax';
+import { ajax, AjaxResponse } from 'rxjs/ajax';
 
 
 
@@ -17,7 +17,7 @@ export class FormDestinoViajeComponent implements OnInit {
   @Output() onItemAdded: EventEmitter<DestinoViaje>;
 
   minLongitud = 3;
-  searchResults:any[];
+  searchResults: string[];
 
   fg: FormGroup = this.fb.group({
     'nombre': ['', Validators.compose([
@@ -30,6 +30,7 @@ export class FormDestinoViajeComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.onItemAdded = new EventEmitter();
+    this.searchResults = [''];
     this.fg.valueChanges.subscribe((form: any) => {
       console.log(form)
     })
@@ -42,11 +43,10 @@ export class FormDestinoViajeComponent implements OnInit {
       .pipe(
         map((e) => (e.target as HTMLInputElement).value),
         filter(text => text.length > 2),
-        debounceTime(120),
-        distinctUntilChanged(),
-        switchMap(() => ajax('/assets/datos.json'))
-      ).subscribe(ajaxResponse => {        
-        console.log(ajaxResponse.response)
+        debounceTime(200), //Detener 200 milisegundos
+        distinctUntilChanged(), //Hasta que sea algo distinto avanzar la sugerencia
+        switchMap(() => ajax('/assets/datos.json'))//Consulta de web services API de búsqueda -será un archivo de prueba-
+      ).subscribe((ajaxResponse:any) => { // Explicitamente :any por que genera error si no se expecifica en tipo
         this.searchResults = ajaxResponse.response;
       });
   }

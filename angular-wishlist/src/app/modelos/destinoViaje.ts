@@ -4,7 +4,7 @@ export class DestinoViaje {
 	selected:boolean;
 	services:string[];
 	id = uuid();
-	constructor(public nombre:string, public imagenUrl:string) {
+	constructor(public nombre:string, public imagenUrl:string , public votes:number = 0) {
        this.services = ['Desayuno','Piscina','Almuerzo','Cena'];
 	}
 	setSelected(s:boolean){
@@ -13,4 +13,11 @@ export class DestinoViaje {
 	isSelected(){
 	  return this.selected;
     }
+	VoteUp(){
+		this.votes++;
+	}
+
+	VoteDown(){
+		this.votes--;
+	}
 }
