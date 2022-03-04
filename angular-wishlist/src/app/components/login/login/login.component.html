@@ -1,0 +1,14 @@
+<form class="form-inline" *ngIf="!authService.getUser()"> <!-- Formulario: Solo se va a mostrar si el getUser es falso -->
+    <div class="form-group">
+        <label for="username">User (type&nbsp;<em>user</em>)</label>
+        <input class="form-control" name="username" #username>
+    </div>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <div class="form-group">
+        <label for="password">Password: (type&nbsp;<em>password</em>)</label>
+        <input class="form-control" type="password" name="password" #password>
+    </div>
+    <a class="btn btn-default" (click)="login(username.value, password.value)">Entrar!</a>
+    <p>{{mensajeError}}</p>
+</form>
+<a class="btn btn-default" (click)="logout()" *ngIf="authService.getUser()">Salir!</a>
