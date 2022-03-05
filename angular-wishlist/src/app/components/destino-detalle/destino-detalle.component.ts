@@ -6,7 +6,8 @@ import { DestinosApiClient } from '../../modelos/destinosApiClientModel';
 @Component({
   selector: 'app-destino-detalle',
   templateUrl: './destino-detalle.component.html',
-  styleUrls: ['./destino-detalle.component.css']
+  styleUrls: ['./destino-detalle.component.css'],
+  providers: [ DestinosApiClient ]
 })
 export class DestinoDetalleComponent implements OnInit {
 
@@ -17,7 +18,7 @@ export class DestinoDetalleComponent implements OnInit {
   ngOnInit(): void {
 
     let id = this.route.snapshot.paramMap.get('id');
-    this.destino = null;//this.destinosApiClient.getById(id);
+    this.destino = this.destinosApiClient.getById(id);
 
   }
 

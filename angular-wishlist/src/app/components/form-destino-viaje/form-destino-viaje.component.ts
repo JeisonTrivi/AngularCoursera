@@ -1,9 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject, forwardRef } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { DestinoViaje } from '../../modelos/destinoViaje';
 import { fromEvent } from 'rxjs';
 import { map, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { ajax } from 'rxjs/ajax';
+import { AppConfig, APP_CONFIG } from 'src/app/app.module';
 
 
 
@@ -28,7 +29,9 @@ export class FormDestinoViajeComponent implements OnInit {
     'url': ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder) {
+ 
+
+  constructor(private fb: FormBuilder,  @Inject(forwardRef(() => APP_CONFIG)) private config: AppConfig) {
     this.onItemAdded = new EventEmitter();
     this.searchResults = [''];
     this.fg.valueChanges.subscribe((form: any) => {
@@ -45,7 +48,7 @@ export class FormDestinoViajeComponent implements OnInit {
         filter(text => text.length > 2),
         debounceTime(200), //Detener 200 milisegundos
         distinctUntilChanged(), //Hasta que sea algo distinto avanzar la sugerencia
-        switchMap(() => ajax('/assets/datos.json'))//Consulta de web services API de búsqueda -será un archivo de prueba-
+        switchMap((text: string) => ajax(this.config.apiEndpoint + '/ciudades?q=' + text))
       ).subscribe((ajaxResponse:any) => { // Explicitamente :any por que genera error si no se expecifica en tipo
         this.searchResults = ajaxResponse.response;
       });

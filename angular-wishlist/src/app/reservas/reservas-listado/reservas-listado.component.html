@@ -3,3 +3,7 @@
     <a [routerLink]="['./',10]">Ir a Detalle</a> <!--Ruta con punto por que es relativa al component-->
     <a [routerLink]="['/login']">Ir a Login</a> <!--['/login'] sin punto al inicio por que no es un ruta relativa -->
 </div>
+
+<div *ngFor="let r of api.getAll()">
+    {{r.id}} - {{r.name}}
+  </div>
